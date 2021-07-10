@@ -11,12 +11,45 @@ import MobileCoreServices
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UINavigationControllerDelegate {
     @IBOutlet var tableView: UITableView!
+    var isDefaultFolderCreated: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        self.checkDefaultFolder()
         // Do any additional setup after loading the view.
+    }
+    
+    func createDefaultFolder(){
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let destURL = dir.appendingPathComponent("official-data")
+        do{
+            try FileManager.default.createDirectory(atPath: destURL.path, withIntermediateDirectories: true, attributes: nil)
+        }
+        catch{
+            print("Error: \(error)")
+        }
+    }
+    
+    func checkDefaultFolder(){
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let destURL = dir.appendingPathComponent("official-data")
+        let fileManager = FileManager.default
+        var isDir : ObjCBool = false
+        if fileManager.fileExists(atPath: destURL.path, isDirectory:&isDir) {
+            if isDir.boolValue {
+                // file exists and is a directory
+                isDefaultFolderCreated = true
+                print(isDir.boolValue)
+            } else {
+                // file exists and is not a directory
+                createDefaultFolder()
+            }
+        } else {
+            // file does not exist
+            createDefaultFolder()
+        }
     }
     //Table func
     
@@ -44,6 +77,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.present(documentPickerController, animated: true, completion: nil)
     }
     
+    
+    func copyFile(srcURL: URL)-> String {
+        let fileName = srcURL.lastPathComponent
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let destURL = dir.appendingPathComponent("official-data").appendingPathComponent(fileName)
+        var res:String = ""
+        do {
+            try FileManager.default.copyItem(atPath: srcURL.path, toPath: destURL.path)
+            res = destURL.path
+        }
+        catch {
+            print("Error: \(error)")
+            
+        }
+        return res
+    }
+    
 }
 
 extension ViewController: UIDocumentPickerDelegate{
@@ -53,8 +103,12 @@ extension ViewController: UIDocumentPickerDelegate{
         }
         let parser = HNXMLParser()
         let res = parser.startParsingFileFromURL(url: myURL)
-        print(res)
-        
+        if res != ""{
+            let newURL = copyFile(srcURL: myURL)
+            print(parser.startParsingFileFromURL(url: URL(fileURLWithPath: newURL)))
+            
+        }
+
     }
 
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
