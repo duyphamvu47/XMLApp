@@ -19,7 +19,7 @@ class HNXMLParser: NSObject, XMLParserDelegate {
         let result = self.xmlParser.parse()
         print("Parsed from URL result: \(result)")
         if result == false {
-            print(xmlParser.parserError?.localizedDescription)
+            print(xmlParser.parserError!.localizedDescription)
         }
         return parsingResult
     }

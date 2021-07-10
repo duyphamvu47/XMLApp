@@ -14,6 +14,8 @@
 		1A23B47426993B2500E8B93D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A23B47326993B2500E8B93D /* Assets.xcassets */; };
 		1A23B47726993B2500E8B93D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A23B47526993B2500E8B93D /* LaunchScreen.storyboard */; };
 		1A23B4872699434100E8B93D /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A23B4862699434100E8B93D /* XMLParser.swift */; };
+		1AEF57B12699A4FC00E720D4 /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF57B02699A4FC00E720D4 /* DBHelper.swift */; };
+		1AEF57B32699A99B00E720D4 /* DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF57B22699A99B00E720D4 /* DTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		1A23B47826993B2500E8B93D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A23B4862699434100E8B93D /* XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
 		1AEF57AF26998CE300E720D4 /* XMPApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XMPApp.entitlements; sourceTree = "<group>"; };
+		1AEF57B02699A4FC00E720D4 /* DBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
+		1AEF57B22699A99B00E720D4 /* DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,8 @@
 				1A23B47526993B2500E8B93D /* LaunchScreen.storyboard */,
 				1A23B47826993B2500E8B93D /* Info.plist */,
 				1A23B4862699434100E8B93D /* XMLParser.swift */,
+				1AEF57B02699A4FC00E720D4 /* DBHelper.swift */,
+				1AEF57B22699A99B00E720D4 /* DTO.swift */,
 			);
 			path = XMPApp;
 			sourceTree = "<group>";
@@ -144,6 +150,8 @@
 			files = (
 				1A23B4872699434100E8B93D /* XMLParser.swift in Sources */,
 				1A23B46F26993B2400E8B93D /* ViewController.swift in Sources */,
+				1AEF57B12699A4FC00E720D4 /* DBHelper.swift in Sources */,
+				1AEF57B32699A99B00E720D4 /* DTO.swift in Sources */,
 				1A23B46B26993B2400E8B93D /* AppDelegate.swift in Sources */,
 				1A23B46D26993B2400E8B93D /* SceneDelegate.swift in Sources */,
 			);

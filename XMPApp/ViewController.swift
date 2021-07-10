@@ -12,6 +12,7 @@ import MobileCoreServices
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UINavigationControllerDelegate {
     @IBOutlet var tableView: UITableView!
     var isDefaultFolderCreated: Bool = false
+    var db:DBHelper = DBHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,10 +106,9 @@ extension ViewController: UIDocumentPickerDelegate{
         let res = parser.startParsingFileFromURL(url: myURL)
         if res != ""{
             let newURL = copyFile(srcURL: myURL)
-            print(parser.startParsingFileFromURL(url: URL(fileURLWithPath: newURL)))
-            
+            db.insert(id: res, path: newURL)
+            print(db.read())
         }
-
     }
 
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
