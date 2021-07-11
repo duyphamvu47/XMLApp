@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A0D8B29269A889B00015F24 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D8B28269A889B00015F24 /* ProgressController.swift */; };
+		1A0D8B2B269A88B500015F24 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D8B2A269A88B500015F24 /* FileHelper.swift */; };
+		1A0D8B2D269A894300015F24 /* ShareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D8B2C269A894300015F24 /* ShareInfo.swift */; };
 		1A23B46B26993B2400E8B93D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A23B46A26993B2400E8B93D /* AppDelegate.swift */; };
 		1A23B46D26993B2400E8B93D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A23B46C26993B2400E8B93D /* SceneDelegate.swift */; };
 		1A23B46F26993B2400E8B93D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A23B46E26993B2400E8B93D /* ViewController.swift */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A0D8B28269A889B00015F24 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
+		1A0D8B2A269A88B500015F24 /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
+		1A0D8B2C269A894300015F24 /* ShareInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareInfo.swift; sourceTree = "<group>"; };
 		1A23B46726993B2400E8B93D /* XMPApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMPApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A23B46A26993B2400E8B93D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A23B46C26993B2400E8B93D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +77,9 @@
 				1A23B47826993B2500E8B93D /* Info.plist */,
 				1A23B4862699434100E8B93D /* XMLParser.swift */,
 				1AEF57B02699A4FC00E720D4 /* DBHelper.swift */,
+				1A0D8B28269A889B00015F24 /* ProgressController.swift */,
+				1A0D8B2A269A88B500015F24 /* FileHelper.swift */,
+				1A0D8B2C269A894300015F24 /* ShareInfo.swift */,
 			);
 			path = XMPApp;
 			sourceTree = "<group>";
@@ -146,9 +155,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A23B4872699434100E8B93D /* XMLParser.swift in Sources */,
+				1A0D8B2D269A894300015F24 /* ShareInfo.swift in Sources */,
 				1A23B46F26993B2400E8B93D /* ViewController.swift in Sources */,
+				1A0D8B29269A889B00015F24 /* ProgressController.swift in Sources */,
 				1AEF57B12699A4FC00E720D4 /* DBHelper.swift in Sources */,
 				1A23B46B26993B2400E8B93D /* AppDelegate.swift in Sources */,
+				1A0D8B2B269A88B500015F24 /* FileHelper.swift in Sources */,
 				1A23B46D26993B2400E8B93D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

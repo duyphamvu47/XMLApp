@@ -9,16 +9,14 @@ import Foundation
 import SQLite3
 
 class DBHelper{
-    var tableName = "DATA"
     var db : OpaquePointer?
-    var path : String = "XMLApp.sqlite"
     init() {
         self.db = createDB()
         self.createTable()
     }
     
     func createDB() -> OpaquePointer? {
-        let filePath = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathExtension(path)
+        let filePath = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathExtension(DBName)
         
         var db : OpaquePointer? = nil
         
@@ -26,7 +24,7 @@ class DBHelper{
             print("There is error in creating DB")
             return nil
         }else {
-            print("Database has been created with path \(path)")
+            print("Database has been created with path \(DBName)")
             return db
         }
     }
@@ -46,7 +44,7 @@ class DBHelper{
             }
     }
     
-    func insert(id: String, path: String) {
+    func insert(id: String, path: String)-> Bool {
         let query = "INSERT INTO \(tableName) (id, path) VALUES (?, ?);"
         
         var statement : OpaquePointer? = nil
@@ -56,13 +54,15 @@ class DBHelper{
             sqlite3_bind_text(statement, 2, (path as NSString).utf8String, -1, nil)
             if sqlite3_step(statement) == SQLITE_DONE {
                 print("Data inserted success")
+                return true
             }else {
                 print("Data is not inserted in table")
+                return false
             }
         } else {
           print("Query is not as per requirement")
+            return false
         }
-            
     }
     
     func read() -> [(String, String)] {

@@ -9,48 +9,15 @@ import UIKit
 import UniformTypeIdentifiers
 import MobileCoreServices
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UINavigationControllerDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
-    var isDefaultFolderCreated: Bool = false
-    var db:DBHelper = DBHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        self.checkDefaultFolder()
+        FileHelper.checkDefaultFolder()
         // Do any additional setup after loading the view.
-    }
-    
-    func createDefaultFolder(){
-        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let destURL = dir.appendingPathComponent("official-data")
-        do{
-            try FileManager.default.createDirectory(atPath: destURL.path, withIntermediateDirectories: true, attributes: nil)
-        }
-        catch{
-            print("Error: \(error)")
-        }
-    }
-    
-    func checkDefaultFolder(){
-        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let destURL = dir.appendingPathComponent("official-data")
-        let fileManager = FileManager.default
-        var isDir : ObjCBool = false
-        if fileManager.fileExists(atPath: destURL.path, isDirectory:&isDir) {
-            if isDir.boolValue {
-                // file exists and is a directory
-                isDefaultFolderCreated = true
-                print(isDir.boolValue)
-            } else {
-                // file exists and is not a directory
-                createDefaultFolder()
-            }
-        } else {
-            // file does not exist
-            createDefaultFolder()
-        }
     }
     //Table func
     
@@ -75,46 +42,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let documentPickerController = UIDocumentPickerViewController(
                 forOpeningContentTypes: types)
         documentPickerController.delegate = self
+        documentPickerController.allowsMultipleSelection = true
         self.present(documentPickerController, animated: true, completion: nil)
     }
     
     
-    func copyFile(srcURL: URL)-> String {
-        let fileName = srcURL.lastPathComponent
-        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let destURL = dir.appendingPathComponent("official-data").appendingPathComponent(fileName)
-        var res:String = ""
-        do {
-            try FileManager.default.copyItem(atPath: srcURL.path, toPath: destURL.path)
-            res = destURL.path
-        }
-        catch {
-            print("Error: \(error)")
-            
-        }
-        return res
-    }
     
 }
 
 extension ViewController: UIDocumentPickerDelegate{
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard let myURL = urls.first else {
+        guard let viewController = storyboard?.instantiateViewController(identifier: "progressView") as? ProgressController else{
             return
         }
-        let parser = HNXMLParser()
-        let res = parser.startParsingFileFromURL(url: myURL)
-        if res != ""{
-            let newURL = copyFile(srcURL: myURL)
-            db.insert(id: res, path: newURL)
-            print(db.read())
+        viewController.navigationItem.largeTitleDisplayMode = .never
+        viewController.data = urls
+        viewController.completion = {result in
+//            self.navigationController?.popViewController(animated: true)
+            //update TableView
         }
+        DispatchQueue.main.async {
+            
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+
     }
 
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
         print("view was cancelled")
         dismiss(animated: true, completion: nil)
     }
+    
     
 }
 

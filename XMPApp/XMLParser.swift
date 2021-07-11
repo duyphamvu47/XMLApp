@@ -22,6 +22,7 @@ class HNXMLParser: NSObject, XMLParserDelegate {
             print(xmlParser.parserError!.localizedDescription)
         }
         return parsingResult
+
     }
 
     //MARK: XMLParserDelegate
@@ -58,16 +59,3 @@ class HNXMLParser: NSObject, XMLParserDelegate {
     }
 }
 
-//func startParsingFile(url: URL)-> String {
-//    guard let parser = Foundation.XMLParser(contentsOf: url) else {
-//        //...
-//        return instanceID
-//    }
-//    parser.delegate = self
-//    let result = parser.parse()
-//    print("Parsed from file result: \(result)")
-//    if result == false {
-//        print(parser.parserError?.localizedDescription)
-//    }
-//    return instanceID
-//}
