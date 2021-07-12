@@ -7,10 +7,13 @@
 
 import Foundation
 import SQLite3
+import UIKit
 
 class DBHelper{
     var db : OpaquePointer?
-    init() {
+    static let shareObject = DBHelper() // singleton
+    
+    private init() {
         self.db = createDB()
         self.createTable()
     }
@@ -38,9 +41,13 @@ class DBHelper{
                     print("Table creation success")
                 }else {
                     print("Table creation fail")
+                    let alertController = UIAlertController(title: "Error", message: "Error when creating table", preferredStyle: .alert)
+                    alertController.show()
                 }
             } else {
                 print("Prepration fail")
+                let alertController = UIAlertController(title: "Error", message: "Error when creating table", preferredStyle: .alert)
+                alertController.show()
             }
     }
     
@@ -57,10 +64,14 @@ class DBHelper{
                 return true
             }else {
                 print("Data is not inserted in table")
+                let alertController = UIAlertController(title: "Error", message: "Error when insert to table", preferredStyle: .alert)
+                alertController.show()
                 return false
             }
         } else {
-          print("Query is not as per requirement")
+            print("Query is not as per requirement")
+            let alertController = UIAlertController(title: "Error", message: "Error when insert to table", preferredStyle: .alert)
+            alertController.show()
             return false
         }
     }
@@ -78,5 +89,44 @@ class DBHelper{
             }
         }
         return res
+    }
+}
+
+
+// Extension to help display alert message to user
+extension UIAlertController {
+    
+    func show() {
+        present(animated: true, completion: nil)
+    }
+    
+    func present(animated: Bool, completion: (() -> Void)?) {
+        let keyWindow = UIApplication.shared.connectedScenes
+                .filter({$0.activationState == .foregroundActive})
+                .map({$0 as? UIWindowScene})
+                .compactMap({$0})
+                .first?.windows
+                .filter({$0.isKeyWindow}).first
+        if let rootVC = keyWindow?.rootViewController {
+            presentFromController(controller: rootVC, animated: animated, completion: completion)
+        }
+    }
+    
+    private func presentFromController(controller: UIViewController, animated: Bool, completion: (() -> Void)?) {
+        if
+            let navVC = controller as? UINavigationController,
+            let visibleVC = navVC.visibleViewController
+        {
+            presentFromController(controller: visibleVC, animated: animated, completion: completion)
+        } else if
+            let tabVC = controller as? UITabBarController,
+            let selectedVC = tabVC.selectedViewController
+        {
+            presentFromController(controller: selectedVC, animated: animated, completion: completion)
+        } else if let presented = controller.presentedViewController {
+            presentFromController(controller: presented, animated: animated, completion: completion)
+        } else {
+            controller.present(self, animated: animated, completion: completion);
+        }
     }
 }
