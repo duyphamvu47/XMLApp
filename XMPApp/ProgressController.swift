@@ -15,7 +15,6 @@ class ProgressController: UIViewController {
     @IBOutlet var progressBar:UIProgressView!
     @IBOutlet var progressBox:UITextView!
     
-    var db:DBHelper = DBHelper()
     var totalTask:Float = Float(0)
     var currentProgress:Float = Float(0)
     public var completion: ((Bool)-> Void)?
@@ -31,8 +30,12 @@ class ProgressController: UIViewController {
         progressBar.trackTintColor = .gray
         progressBar.setProgress(0.0, animated: false)
         
-        for (index, element) in DataState.enumerated(){
+
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        for (index, _) in DataState.enumerated(){
             TaskControl(index: index)
+            print(DataState[index].url)
         }
     }
     
@@ -45,9 +48,6 @@ class ProgressController: UIViewController {
     func TaskControl(index: Int){
         while self.DataState[index].state != .cancel{
             switch self.DataState[index].state {
-            case .cancel:
-                progressBox.text += "Done\n"
-                
             case .parse:
                 parseTask(index: index)
                 
@@ -56,14 +56,16 @@ class ProgressController: UIViewController {
         
             case .insert:
                 insertTask(index: index)
+            case .cancel:
+                break
             }
         }
     }
     
     
     func parseTask(index: Int){
-        DispatchQueue.global(qos: .userInitiated).sync {
-            //Parse XML
+        //Parse XML
+        DispatchQueue.global(qos: .userInteractive).sync {
             let myURL = self.DataState[index].url
             let parser = HNXMLParser()
             var message:String = ""
@@ -89,8 +91,8 @@ class ProgressController: UIViewController {
     }
     
     func copyTask(index: Int){
-        let myURL = DataState[index].url
-        DispatchQueue.global(qos: .userInitiated).sync {
+        DispatchQueue.global(qos: .userInteractive).sync {
+            let myURL = DataState[index].url
             var message:String = ""
             let newURL = FileHelper.copyFile(srcURL: myURL)
 
@@ -113,11 +115,11 @@ class ProgressController: UIViewController {
     }
     
     func insertTask(index: Int){
-        var message:String = ""
-        DispatchQueue.global(qos: .userInitiated).sync {
+        DispatchQueue.global(qos: .userInteractive).sync {
+            var message:String = ""
             let myURL = self.DataState[index].url
             let newURL = FileHelper.getSaveDir(fileName: self.DataState[index].url.lastPathComponent)
-            let insertRes = self.db.insert(id: self.DataState[index].instanceID, path: newURL.path)
+            let insertRes = DBHelper.shareObject.insert(id: self.DataState[index].instanceID, path: newURL.path)
             
             if insertRes{
                 message = "Insert " +  myURL.lastPathComponent + " to DB success\n"
@@ -133,6 +135,5 @@ class ProgressController: UIViewController {
                 self.progressBox.text += message
             }
         }
-
     }
 }
