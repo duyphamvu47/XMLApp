@@ -49,7 +49,7 @@ class FileHelper{
             res = destURL.path
         }
         catch {
-//            print("Error: \(error)")
+            print("Error: \(error)")
             
         }
         return res

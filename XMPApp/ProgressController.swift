@@ -17,7 +17,6 @@ class ProgressController: UIViewController {
     
     var totalTask:Float = Float(0)
     var currentProgress:Float = Float(0)
-    public var completion: ((Bool)-> Void)?
     var data:[URL] = []
     var DataState:[(state: ProcessState, url: URL, instanceID: String)] = []
     

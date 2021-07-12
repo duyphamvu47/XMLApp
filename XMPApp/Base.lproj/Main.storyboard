@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="DXi-3V-SqY" style="IBUITableViewCellStyleDefault" id="IkV-YE-Abc">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="DXi-3V-SqY" detailTextLabel="yr2-ax-dZQ" style="IBUITableViewCellStyleSubtitle" id="IkV-YE-Abc">
                                         <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IkV-YE-Abc" id="KmW-OX-DnX">
@@ -28,9 +28,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DXi-3V-SqY">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                                    <rect key="frame" x="20" y="5" width="31" height="18"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yr2-ax-dZQ">
+                                                    <rect key="frame" x="20" y="23" width="47" height="16"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -50,7 +57,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5VW-aK-Qzq">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="MLM-E9-Njs">
+                        <barButtonItem key="rightBarButtonItem" title="Import" id="MLM-E9-Njs">
                             <connections>
                                 <action selector="addBtnClicked" destination="BYZ-38-t0r" id="vZR-SF-iOA"/>
                             </connections>
@@ -97,27 +104,25 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="h1d-oC-CyA">
-                                <rect key="frame" x="10" y="787" width="394" height="4"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6ti-fR-Jdl">
+                                <rect key="frame" x="30" y="762" width="354" height="4"/>
                             </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PJl-H9-ItS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="PJl-H9-ItS" firstAttribute="trailing" secondItem="h1d-oC-CyA" secondAttribute="trailing" constant="10" id="3Sv-Ij-9mP"/>
+                            <constraint firstItem="6ti-fR-Jdl" firstAttribute="leading" secondItem="PJl-H9-ItS" secondAttribute="leading" constant="30" id="C0g-RQ-m7Z"/>
                             <constraint firstItem="Js6-h0-JOo" firstAttribute="top" secondItem="PJl-H9-ItS" secondAttribute="top" constant="10" id="Dfg-Qq-dlX"/>
                             <constraint firstItem="PJl-H9-ItS" firstAttribute="trailing" secondItem="Js6-h0-JOo" secondAttribute="trailing" constant="10" id="SbC-Hx-Gly"/>
-                            <constraint firstItem="h1d-oC-CyA" firstAttribute="top" secondItem="Js6-h0-JOo" secondAttribute="bottom" constant="75" id="TuC-BV-ayr"/>
                             <constraint firstItem="PJl-H9-ItS" firstAttribute="bottom" secondItem="Js6-h0-JOo" secondAttribute="bottom" constant="150" id="cfj-51-aBN"/>
-                            <constraint firstItem="h1d-oC-CyA" firstAttribute="leading" secondItem="PJl-H9-ItS" secondAttribute="leading" constant="10" id="i9r-7O-V4s"/>
+                            <constraint firstItem="6ti-fR-Jdl" firstAttribute="top" secondItem="Js6-h0-JOo" secondAttribute="bottom" constant="50" id="m25-S7-M2R"/>
+                            <constraint firstItem="PJl-H9-ItS" firstAttribute="trailing" secondItem="6ti-fR-Jdl" secondAttribute="trailing" constant="30" id="ovc-qn-gGI"/>
                             <constraint firstItem="Js6-h0-JOo" firstAttribute="leading" secondItem="PJl-H9-ItS" secondAttribute="leading" constant="10" id="xc0-85-ich"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="EC0-mR-IHp">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="PAt-F8-Ynd"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="EC0-mR-IHp"/>
                     <connections>
-                        <outlet property="progressBar" destination="h1d-oC-CyA" id="RMc-da-ONQ"/>
+                        <outlet property="progressBar" destination="6ti-fR-Jdl" id="X0V-rZ-U1k"/>
                         <outlet property="progressBox" destination="Js6-h0-JOo" id="7QE-E7-mZx"/>
                     </connections>
                 </viewController>

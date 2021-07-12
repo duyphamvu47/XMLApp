@@ -25,6 +25,9 @@ class DBHelper{
         
         if sqlite3_open(filePath.path, &db) != SQLITE_OK {
             print("There is error in creating DB")
+            let alertController = UIAlertController(title: "Error", message: "Error when creating DB", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            alertController.show()
             return nil
         }else {
             print("Database has been created with path \(DBName)")
@@ -42,11 +45,13 @@ class DBHelper{
                 }else {
                     print("Table creation fail")
                     let alertController = UIAlertController(title: "Error", message: "Error when creating table", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                     alertController.show()
                 }
             } else {
                 print("Prepration fail")
                 let alertController = UIAlertController(title: "Error", message: "Error when creating table", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                 alertController.show()
             }
     }
@@ -64,14 +69,10 @@ class DBHelper{
                 return true
             }else {
                 print("Data is not inserted in table")
-                let alertController = UIAlertController(title: "Error", message: "Error when insert to table", preferredStyle: .alert)
-                alertController.show()
                 return false
             }
         } else {
             print("Query is not as per requirement")
-            let alertController = UIAlertController(title: "Error", message: "Error when insert to table", preferredStyle: .alert)
-            alertController.show()
             return false
         }
     }

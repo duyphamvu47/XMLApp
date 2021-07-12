@@ -11,3 +11,4 @@ public var isDefaultFolderCreated:Bool = false
 public var defaultFolderName: String = "official-data"
 public var tableName = "DATA"
 public var DBName : String = "XMLApp.sqlite"
+

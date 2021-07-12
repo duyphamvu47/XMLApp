@@ -11,6 +11,7 @@ import MobileCoreServices
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
+    var data:[(id: String, url: String)] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,15 +20,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         FileHelper.checkDefaultFolder()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        data = DBHelper.shareObject.read()
+        tableView.reloadData()
+    }
     //Table func
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "None"
+        let fileName = URL(fileURLWithPath: data[indexPath.row].url).lastPathComponent
+        cell.textLabel?.text = "File: \(fileName)"
+        cell.detailTextLabel?.text = "intanceID: \(data[indexPath.row].id)"
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -35,7 +43,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func addBtnClicked(){
-//        let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.text", "com.apple.iwork.pages.pages", "public.data"], in: .import)
         let types = UTType.types(tag: "xml",
                                  tagClass: UTTagClass.filenameExtension,
                                  conformingTo: nil)
@@ -44,6 +51,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         documentPickerController.delegate = self
         documentPickerController.allowsMultipleSelection = true
         self.present(documentPickerController, animated: true, completion: nil)
+    }
+    func loadData(){
+        data = DBHelper.shareObject.read()
     }
     
     
@@ -57,14 +67,8 @@ extension ViewController: UIDocumentPickerDelegate{
         }
         viewController.navigationItem.largeTitleDisplayMode = .never
         viewController.data = urls
-        viewController.completion = {result in
-//            self.navigationController?.popViewController(animated: true)
-            //update TableView
-        }
-        DispatchQueue.main.async {
             
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
+        self.navigationController?.pushViewController(viewController, animated: true)
 
     }
 
